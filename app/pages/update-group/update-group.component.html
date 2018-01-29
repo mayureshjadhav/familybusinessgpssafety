@@ -1,0 +1,77 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <NavigationButton text="Back" ios:tintColor="#FFF" android.systemIcon="ic_menu_back" (tap)="onGoBack()"></NavigationButton>
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="Update Group" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+</ActionBar>
+<GridLayout rows="*" columns="*" class="settings">
+
+    <StackLayout row="0" *ngIf="!isLoad">
+        <ScrollView>
+            <GridLayout rows="*" columns="*" [visibility]="isLoading ? 'collapse' : 'visible'">
+                <StackLayout [formGroup]="userForm" row="0">
+                    <Label [text]="viewGroup.SubscriptionName" textWrap="true" class="p-10 m-t-10 m-b-25 text-primary" fontSize="15"></Label>
+
+                    <StackLayout class="setting">
+                        <Label text="Group Name" textWrap="true" class="roboto-medium"></Label>
+                        <TextField formControlName="GroupName" hint="Group Name" text=""></TextField>
+                        <control-messages [control]="userForm.controls.GroupName" controlName="Group Name"></control-messages>
+                    </StackLayout>
+
+                    <DockLayout class="setting" stretchLastChild="false">
+                        <Label text="Can members see each other?" dock="left" textWrap="true" class="roboto-medium"></Label>
+                        <Switch #sw (checkedChange)="onChange(sw.checked)" [checked]="viewGroup.CanMemberSeeEachOther != null ? viewGroup.CanMemberSeeEachOther : true"
+                            dock="right" marginRight="10"></Switch>
+                    </DockLayout>
+
+                    <StackLayout class="setting" [visibility]="viewGroup.SubscriptionType == 2 ? 'visible' : 'collapsed'">
+                        <Label text="Tracking Time" textWrap="true" class="roboto-medium"></Label>
+                        <!-- <StackLayout orientation="horizontal">
+                                <TimePicker row="1" col="0" #FromTime [hour]="fromTimeHours" [minute]="fromTimeMin"></TimePicker>
+                                <TimePicker row="1" col="1" #ToTime [hour]="toTimeHours" [minute]="toTimeMin"></TimePicker>
+                        </StackLayout> -->
+                        <StackLayout class="m-t-15">
+                            <Label text="From" textWrap="true" class="roboto-medium"></Label>
+                            <TimePicker #FromTime [hour]="fromTimeHours" [minute]="fromTimeMin"></TimePicker>
+                            <Label text="To" textWrap="true" class="roboto-medium"></Label>
+                            <TimePicker #ToTime [hour]="toTimeHours" [minute]="toTimeMin"></TimePicker>
+                        </StackLayout>
+                        <!-- <GridLayout rows="*,*" columns="*,*">
+                            <Label row="0" col="0" text="From" textWrap="true"></Label>
+                            <Label row="0" col="1" text="To" textWrap="true"></Label>
+                            <TimePicker row="1" col="0" #FromTime [hour]="fromTimeHours" [minute]="fromTimeMin"></TimePicker>
+                            <TimePicker row="1" col="1" #ToTime [hour]="toTimeHours" [minute]="toTimeMin"></TimePicker>
+                        </GridLayout> -->
+                    </StackLayout>
+
+                    <StackLayout class="setting" [visibility]="viewGroup.SubscriptionType == 2 ? 'visible' : 'collapsed'">
+                        <Label text="Tracking Days" textWrap="true" class="roboto-medium"></Label>
+                        <GridLayout rows="*" columns="*,*,*,*,*,*,*">
+                            <Label row="0" col="0" text="M" textWrap="true" [class]="viewGroup.Monday? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                verticalAlignment="center" (tap)="onDayCheck('Monday', viewGroup.Monday)"></Label>
+                            <Label row="0" col="1" text="T" textWrap="true" [class]="viewGroup.Tuesday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                verticalAlignment="center" (tap)="onDayCheck('Tuesday', viewGroup.Tuesday)"></Label>
+                            <Label row="0" col="2" text="W" textWrap="true" [class]="viewGroup.Wednesday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                verticalAlignment="center" (tap)="onDayCheck('Wednesday', viewGroup.Wednesday)"></Label>
+                            <Label row="0" col="3" text="T" textWrap="true" [class]="viewGroup.Thursday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                verticalAlignment="center" (tap)="onDayCheck('Thursday', viewGroup.Thursday)"></Label>
+                            <Label row="0" col="4" text="F" textWrap="true" [class]="viewGroup.Friday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                verticalAlignment="center" (tap)="onDayCheck('Friday', viewGroup.Friday)"></Label>
+                            <Label row="0" col="5" text="S" textWrap="true" [class]="viewGroup.Saturday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                verticalAlignment="center" (tap)="onDayCheck('Saturday', viewGroup.Saturday)"></Label>
+                            <Label row="0" col="6" text="S" textWrap="true" [class]="viewGroup.Sunday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                verticalAlignment="center" (tap)="onDayCheck('Sunday', viewGroup.Sunday)"></Label>
+
+                        </GridLayout>
+                    </StackLayout>
+                    <Button text="Update Group" (tap)="updateGroup()" style="margin-top: 25px; color: #fff; background-color: #ff0068; margin-left: 56px; margin-right: 56px;"></Button>
+
+                </StackLayout>              
+            </GridLayout>
+        </ScrollView>
+    </StackLayout>
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

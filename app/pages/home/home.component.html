@@ -1,0 +1,118 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="Groups" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+    <!-- <ActionItem text="Logout" (tap)="onLogout()" ios.position="right" android.position="popup"></ActionItem> -->
+
+    <!-- <ActionItem (tap)="onLogOut()" style="height: 30px;" icon="res://ic_logout" position="right"></ActionItem> -->
+</ActionBar>
+<side-drawer-page>
+
+    <GridLayout rows="*" columns="*">
+        <StackLayout row="0" *ngIf="!isLoad" class="container">
+            <GridLayout rows="*, auto" columns="" style="background-color: #F3F7F8;" [visibility]="isLoading ? 'collapse' : 'visible'">
+                <GridLayout rows="auto,*" columns="">
+
+                    <StackLayout height="100%" row="1">
+                        <PullToRefresh (refresh)="refreshList($event)">
+                            <ListView [items]="groups" class="list-group" (itemTap)="onGroupTap($event)">
+                                <ng-template let-item="item">
+                                    <GridLayout rows="auto" columns="*, auto" class="p-24">
+                                        <StackLayout>
+                                            <Label [text]="item.GroupName" textWrap="true" class="roboto-regular" style="color:black" fontSize="18"></Label>
+                                            <Label text="{{'Total Members : ' + item.NumberOfMemebers}}" textWrap="true" class="roboto-regular"></Label>
+                                        </StackLayout>
+                                        <Label row="0" col="1" *ngIf="item.IsActive" text="&#xf06e;" textWrap="true" style="color:green" class="fa m-10" fontSize="25"></Label>
+                                        <Label row="0" col="1" *ngIf="!item.IsActive" text="&#xf070;" textWrap="true" class="fa m-10" fontSize="25"></Label>
+
+                                    </GridLayout>
+                                    <StackLayout *ngIf="item.IsAdmin && !item.IsDriverProtectionEnabled && item.SubscriptionType != 0" style="background-color: #FFA3A3;clip-path:polygon(0 20%, 46% 20%, 50% 0, 55% 20%, 100% 20%, 100% 100%, 0 100%);">
+                                        <GridLayout rows="*" columns="*, auto">
+                                            <Label text="Travel protection not active!" textWrap="true" style="color:#bd0000; padding-top: 20; padding-left: 24 "></Label>
+
+                                            <StackLayout row="0" col="1" class="p-t-10">
+                                                <Button text="Upgrade Now" style="background-color: #ff0000;color:#FFF;"></Button>
+                                            </StackLayout>
+
+                                        </GridLayout>
+
+                                    </StackLayout>
+                                </ng-template>
+                            </ListView>
+                        </PullToRefresh>
+                        <!-- <ScrollView>
+                            <StackLayout>
+
+                                <StackLayout tap class="border-bottom background-white-color" *ngFor="let group of groups;">
+                                    <GridLayout (tap)="onGroupTap(group.UserGroupId)" rows="auto" columns="*, auto" class="p-24">
+                                        <StackLayout>
+                                            <Label [text]="group.GroupName" textWrap="true" class="roboto-regular" style="color:black" fontSize="18"></Label>
+                                            <Label text="{{'Total Members : ' + group.NumberOfMemebers}}" textWrap="true" class="roboto-regular"></Label>
+                                        </StackLayout>
+                                        <Label row="0" col="1" *ngIf="group.IsActive" text="&#xf06e;" textWrap="true" style="color:green" class="fa m-10" fontSize="25"></Label>
+                                        <Label row="0" col="1" *ngIf="!group.IsActive" text="&#xf070;" textWrap="true" class="fa m-10" fontSize="25"></Label>
+
+                                    </GridLayout>
+                                    <StackLayout *ngIf="group.IsAdmin && !group.IsDriverProtectionEnabled && group.SubscriptionType != 0" style="background-color: #FFA3A3;clip-path:polygon(0 20%, 46% 20%, 50% 0, 55% 20%, 100% 20%, 100% 100%, 0 100%);">
+                                        <GridLayout rows="*" columns="*, auto">
+                                            <Label text="Travel protection not active!" textWrap="true" style="color:#bd0000; padding-top: 20; padding-left: 24 "></Label>
+
+                                            <StackLayout row="0" col="1" class="p-t-10">
+                                                <Button text="Upgrade Now" style="background-color: #ff0000;color:#FFF;"></Button>
+                                            </StackLayout>
+
+                                        </GridLayout>
+
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </ScrollView> -->
+                    </StackLayout>
+
+
+
+
+                    <FAB (tap)="addNewGroup()" row="1" icon="res://ic_add_white" rippleColor="#f1f1f1" class="fab-button m-b-25"></FAB>
+                </GridLayout>
+                <StackLayout row="1" orientation="horizontal" class="bottom-tab">
+                    <StackLayout width="33.33%" style="padding-bottom:0; margin-top: 10;color:#049ff6" class="tab-btn text-center" verticalAlignment="center"
+                        horizontalAlignment="center">
+                        <Label text="&#xf0c0;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                        <Label text="Groups" textWrap="true" class="roboto-medium text-center p-b-10"></Label>
+                    </StackLayout>
+
+                    <StackLayout (tap)="updateProfile()" width="33.33%" style="padding-bottom:0;margin-top: 10;color:#049ff6" class="tab-btn text-center"
+                        verticalAlignment="center" horizontalAlignment="center">
+                        <Label text="&#xf2c0;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                        <Label text="Profile" textWrap="true" class="label text-center p-b-10"></Label>
+                    </StackLayout>
+
+                    <StackLayout width="33.33%" style="padding-bottom:0;margin-top: 10;color:#049ff6" class="tab-btn text-center" verticalAlignment="center"
+                        horizontalAlignment="center">
+
+                        <AbsoluteLayout verticalAlignment="center" horizontalAlignment="center">
+                            <StackLayout verticalAlignment="center" horizontalAlignment="center">
+                                <Label text="&#xf0a2;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                                <Label text="Notification" textWrap="true" class="label text-center p-b-10"></Label>
+                            </StackLayout>
+                            <!-- <StackLayout left="46" top="0" style="height: 25; width: 25;padding:5 5 5 5;color: #fff; background-color: red; border-radius: 50">
+                            <Label text="100" left="50" top="0" fontSize="8"></Label>
+                        </StackLayout> -->
+
+                        </AbsoluteLayout>
+
+                    </StackLayout>
+                </StackLayout>
+            </GridLayout>
+
+
+        </StackLayout>
+
+        <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+            row="0"></ActivityIndicator>
+        <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+            row="0"></ActivityIndicator>
+    </GridLayout>
+
+</side-drawer-page>

@@ -1,0 +1,68 @@
+<GridLayout rows="*" columns="*" class="coverImage" style="background-image: url('~/images/background.png');">
+
+    <StackLayout style="background-color:#990b0b0b;" row="0" *ngIf="!isLoad">
+        <ScrollView>
+            <StackLayout class="p-24" [visibility]="isLoading ? 'collapse' : 'visible'">
+                <Image src="res://signin_logo" class="m-t-28" style="width: 300px;"></Image>
+                <StackLayout (tap)="onSignUp()" class="m-t-25 white-box">
+                    <Label text="Create an account!" textWrap="true" class="roboto-medium black-color" fontSize="18"></Label>
+
+                </StackLayout>
+                <StackLayout [formGroup]="userForm" class="m-t-25 white-box">
+                    <StackLayout orientation="horizontal">
+                        <Label text="Login" textWrap="true" class="roboto-medium black-color" fontSize="18"></Label>
+                        <Label text="Already an user?" textWrap="true" class="roboto-medium m-l-20 p-t-12" fontSize="12"></Label>
+                    </StackLayout>
+                    <StackLayout class="m-t-25">
+                        <TextField formControlName="UserName" hint="Enter your email" text="" class="text-field"></TextField>
+                        <control-messages [control]="userForm.controls.UserName" controlName="Email"></control-messages>
+
+                        <TextField formControlName="Password" secure="true" hint="Password" text="" class="text-field"></TextField>
+                        <control-messages [control]="userForm.controls.Password" controlName="Password"></control-messages>
+
+                    </StackLayout>
+
+                    <Label text="Forgot Password?" textWrap="true" (tap)="onForgotPassword()" class="pull-right color-pink m-t-25"></Label>
+                    <Button text="Login" (tap)="onLogin()" class="btn-pink m-t-25 m-l-56 m-r-56"></Button>
+
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+
+
+
+    </StackLayout>
+
+    <!-- <StackLayout row="0" *ngIf="!isLoad">
+        <ScrollView>
+            <GridLayout rows="auto,auto,*" [visibility]="isLoading ? 'collapse' : 'visible'" style="margin: 24 24 24 24; background-color: #990b0b0b; opacity: 79%;">
+                <Image src="res://signin_logo" row="0" style="margin-top: 28px; width: 117px; height: 91px"></Image>
+                <StackLayout row="1" style="background-color: #FFF; border-radius: 7px; padding: 18 18 18 18;" fontSize="18">
+                    <Label text="Create an account!" textWrap="true" class="roboto-medium"></Label>
+                    
+                </StackLayout>
+                
+                <StackLayout row="2" [formGroup]="userForm" style="background-color: #FFF; border-radius: 7px; padding: 18 18 18 18;">
+
+                    <TextField formControlName="UserName" hint="Email" text="" class="input input-border"></TextField>
+                    <control-messages [control]="userForm.controls.UserName" controlName="Email"></control-messages>
+
+                    <TextField formControlName="Password" secure="true" hint="Password" text="" class="input input-border"></TextField>
+                    <control-messages [control]="userForm.controls.Password" controlName="Password"></control-messages>
+
+                    <Label text="Forgot Password?" (tap)="onForgotPassword()" class="btn pull-right"></Label>
+                    <Button text="Login" class="btn btn-primary btn-rounded-lg" (tap)="onLogin()"></Button>
+                    <Button text="SignUp" class="btn btn-primary btn-rounded-lg" (tap)="onSignUp()"></Button>
+
+                </StackLayout>
+            </GridLayout>
+
+
+        </ScrollView>
+    </StackLayout> -->
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

@@ -1,0 +1,12 @@
+<StackLayout class="modal-view-style" sdkExampleTitle sdkToggleNavButton>
+    <DockLayout stretchLastChild="false" verticalAlignment="center" class="p-t-5 p-l-24 p-r-24 border-bottom">
+        <Label text="Accept Invitation" dock="left" textWrap="true" class="text-center h2"></Label>
+        <Label text="X" textWrap="true" fontSize="25" (tap)="closeModal()" dock="right" class="p-t-5"></Label>
+    </DockLayout>
+    <StackLayout [formGroup]="userForm" class="p-t-28 p-l-24 p-r-24">
+        <TextField formControlName="Token" hint="Token" text=""></TextField>
+        <control-messages [control]="userForm.controls.Token" controlName="Token"></control-messages>
+        <Button text="Accept Invitation" (tap)="OnSubmit()" style="margin-top: 25px; color: #fff; background-color: #ff0068; margin-left: 56px; margin-right: 56px;"></Button>
+
+    </StackLayout>
+</StackLayout>

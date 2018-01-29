@@ -1,0 +1,79 @@
+/*
+In NativeScript, the app.css file is where you place CSS rules that
+you would like to apply to your entire application. Check out
+http://docs.nativescript.org/ui/styling for a full list of the CSS
+selectors and properties you can use to style UI components.
+
+/*
+In many cases you may want to use the NativeScript core theme instead
+of writing your own CSS rules. For a full list of class names in the theme
+refer to http://docs.nativescript.org/ui/theme.
+*/
+@import '~nativescript-theme-core/css/core.light.css';
+@import './style/new_custom.css';
+
+Page {
+    font-family: "Roboto-Medium";
+}
+
+TextField{
+    font-family: "Roboto-Light";
+    border-bottom-width: 1;
+    border-bottom-color: gray;
+}
+
+ActionBar
+{
+    border-width: 0.1;
+    border-color: #049ff6;
+    color: white;
+}
+/* TextField[text]{
+    font-family: "Roboto-Light";
+} */
+
+.fa {
+    font-family: "FontAwesome, fontawesome-webfont";
+  }
+
+.roboto-medium{
+    font-family: "Roboto-Medium";
+}
+
+.roboto-regular{
+    font-family: "Roboto-Regular";
+}
+
+.roboto-medium-italic{
+    font-family: "Roboto-MediumItalic";
+}
+
+.roboto-bold{
+    font-family: "Roboto-Bold";
+}
+
+.roboto-light{
+    font-family: "Roboto-Light";
+}
+
+.fab-button {
+    height: 45;
+    width: 45; 
+    margin: 10;
+    background-color: #FF0068; 
+    horizontal-align: right; 
+    vertical-align: bottom; 
+}
+
+.coverImage {
+    background-image: url("~/images/background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .btn-none{
+    border-color: transparent;
+    border-width: 1;
+}
+

@@ -1,0 +1,105 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <NavigationButton text="Back" ios:tintColor="#FFF" android.systemIcon="ic_menu_back" (tap)="onGoBack()"></NavigationButton>
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="Update Profile" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+</ActionBar>
+<GridLayout rows="*" columns="*">
+
+    <StackLayout row="0" *ngIf="!isLoad">
+        <ScrollView>
+            <StackLayout style="padding: 24 24 24 24;" [visibility]="isLoading ? 'collapse' : 'visible'">
+                <AbsoluteLayout width="150" height="150" style="margin-top: 28px;">
+                    <Image [src]="image | imageCache | async" width="150" height="150" stretch="aspectFill" class="circle-wrapper" placeholder="res://profile"></Image>
+                    <Label (tap)="editPhoto()" text="&#xf030;" class="fa" left="100" top="100" width="90" height="90" color="red" fontSize="40"></Label>
+                </AbsoluteLayout>
+                <!-- <Image src="res://signin_logo" style="margin-top: 28px;" stretch="aspectFit" class="img-rounded"></Image> -->
+                <StackLayout [formGroup]="userForm">
+                    <Label text="Email" textWrap="true" class="roboto-medium" fontSize="15" style="margin-top: 30px;"></Label>
+                    <TextField hint="Email" [text]="email" isEnabled="false"></TextField>
+
+                    <!-- <Label [text]="email" textWrap="true" class="roboto-medium" fontSize="15"></Label> -->
+
+                    <Label text="Name" textWrap="true" class="roboto-medium" fontSize="15"></Label>
+                    <TextField formControlName="Name" hint="Name" text=""></TextField>
+                    <control-messages [control]="userForm.controls.Name" controlName="Name"></control-messages>
+
+                    <Label text="Gender" textWrap="true" class="roboto-medium" fontSize="15"></Label> 
+                    <GridLayout rows="*" columns="*, auto" (tap)="genderSelect()">
+                        <TextField text="Male" isEnabled="false" [visibility]="gender ==0 ? 'visible' : 'collapsed'" row="0" col="0" ></TextField>
+                        <TextField text="Female" isEnabled="false" [visibility]="gender == 1 ? 'visible' : 'collapsed'" row="0" col="0" ></TextField>
+                        <TextField text="Other" isEnabled="false" [visibility]="gender == 2 ? 'visible' : 'collapsed'" row="0" col="0" ></TextField>
+                        <Label  text="&#xf107;" class="fa" textWrap="true" row="0"
+                            col="1" fontSize="30"></Label>
+                    </GridLayout>
+                   
+                    
+                    <!-- <SegmentedBar #gender [items]="genders" [selectedIndex]="selectedIndex"></SegmentedBar> -->
+
+                    <Label text="Phone Number (with country code)" textWrap="true" class="roboto-medium" fontSize="15"></Label>
+                    <TextField formControlName="PhoneNumber" hint="Phone Number" text=""></TextField>
+                    <control-messages [control]="userForm.controls.PhoneNumber" controlName="PhoneNumber"></control-messages>
+
+                    <!-- <Label text="Address" textWrap="true" class="roboto-medium" fontSize="15"></Label>
+                    <TextField formControlName="Address" hint="Address" text=""></TextField>
+                    <control-messages [control]="userForm.controls.Address" controlName="Address"></control-messages> -->
+
+                    <!-- <TextField formControlName="Latitude" hint="Address" text=""></TextField>
+                    <TextField formControlName="Longitude" hint="Address" text=""></TextField> -->
+                    <Label text="Address" textWrap="true" class="roboto-medium" fontSize="15"></Label>
+                    <Label [text]="address" textWrap="true" fontSize="15"></Label>
+                    
+                    <!-- <TextField formControlName="Address" hint="Address" text="" isEnabled="false"></TextField> -->
+
+                    <Button (tap)="enableLocationTap()" style="border-width: 1; border-color: #ff0068; color: #ff0068; background-color: transparent; margin-top: 20px;">
+                        <FormattedString>
+                            <Span text="LOCATE MY ADDRESS " fontWeight="Bold"></Span>
+                            <Span text="&#xf192;" class="fa" style="text-align:right"></Span>
+                        </FormattedString>
+                    </Button>
+                    <!-- <control-messages [control]="userForm.controls.Address" controlName="Address"></control-messages> -->
+
+
+                    <Label text="Emergency Contacts (with country code)" textWrap="true" class="roboto-medium" fontSize="15" style="margin-top: 20px;"></Label>
+                    <GridLayout rows="*" columns="*, auto">
+                        <TextField formControlName="EmergencyContact1" hint="Emergency Contact 1" text="" row="0" col="0"></TextField>
+                        <Label (tap)="contactPicker('EmergencyContact1')" text="&#xf098;" class="fa" textWrap="true" row="0"
+                            col="1" color="red" fontSize="30"></Label>
+                    </GridLayout>
+
+                    <control-messages [control]="userForm.controls.EmergencyContact1" controlName="Emergency Contact 1"></control-messages>
+
+                    <GridLayout rows="*" columns="*, auto">
+                        <TextField formControlName="EmergencyContact2" hint="Emergency Contact 2" text=""></TextField>
+                        <Label (tap)="contactPicker('EmergencyContact2')" text="&#xf098;" class="fa" textWrap="true" row="0"
+                            col="1" color="red" fontSize="30"></Label>
+                    </GridLayout>
+
+                    <control-messages [control]="userForm.controls.EmergencyContact2" controlName="Emergency Contact 2"></control-messages>
+
+                    <GridLayout rows="*" columns="*, auto">
+                        <TextField formControlName="EmergencyContact3" hint="Emergency Contact 3" text=""></TextField>
+                        <Label (tap)="contactPicker('EmergencyContact3')" text="&#xf098;" class="fa" textWrap="true" row="0"
+                            col="1" color="red" fontSize="30"></Label>
+                    </GridLayout>
+
+                    <control-messages [control]="userForm.controls.EmergencyContact3" controlName="Emergency Contact 3"></control-messages>
+
+                    <GridLayout rows="*" columns="*, auto">
+                        <TextField formControlName="EmergencyContact4" hint="Emergency Contact 4" text=""></TextField>
+                        <Label (tap)="contactPicker('EmergencyContact4')" text="&#xf098;" class="fa" textWrap="true" row="0"
+                            col="1" color="red" fontSize="30"></Label>
+                    </GridLayout>
+
+                    <control-messages [control]="userForm.controls.EmergencyContact4" controlName="Emergency Contact 4"></control-messages>
+                    <Button text="Update Profile" (tap)="OnSubmit()" style="margin-top: 25px; color: #fff; background-color: #ff0068; margin-left: 56px; margin-right: 56px;"></Button>
+                    
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

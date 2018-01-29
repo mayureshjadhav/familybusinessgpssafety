@@ -1,0 +1,51 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <NavigationButton text="Back" ios:tintColor="#FFF" android.systemIcon="ic_menu_back" (tap)="onGoBack()"></NavigationButton>
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="Invitations" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+
+</ActionBar>
+<GridLayout rows="*" columns="*" class="settings">
+    <StackLayout row="0" *ngIf="!isLoad">
+        <StackLayout row="1" height="100%" [visibility]="isLoading ? 'collapse' : 'visible'">
+            <Label *ngIf="isEmptyRecords" text="No Invitations Found" textWrap="true" class="p-15 text-center color-pink"></Label>
+
+            <PullToRefresh (refresh)="refreshList($event)">
+
+                <ListView [items]="invitations" (itemLoading)="loadMoreMembers($event)" (itemTap)="onItemTap($event)" class="list-group">
+                    <ng-template let-item="item">
+                        <DockLayout stretchLastChild="false" verticalAlignment="center" class="p-24">
+                            <Label [text]="item.GroupName" dock="left" textWrap="true" class="roboto-regular" style="color:black" fontSize="18"></Label>
+                            <!-- <Label text=":" textWrap="true" fontSize="25" (tap)="ob"></Label> -->
+
+                        </DockLayout>
+                        <!-- <GridLayout rows="auto" columns="50, *, 120" class="setting p-t-10 p-b-10">
+                            <Image [src]="item.ProfileImage | imageCache | async" class="img-rounded" row="0" col="0"></Image>
+                            <Label [text]="item.Name" textWrap="true" row="0" col="1" fontSize="14" class="roboto-regular p-l-10" style="color:#de000000;"
+                                verticalAlignment="center"></Label>
+
+                            <StackLayout *ngIf="userId != item.UserGroupMemberId" row="0" col="2" class="p-l-10">
+                                <DockLayout stretchLastChild="false" verticalAlignment="center" class="p-t-5">
+                                    <Label text="Arrival" dock="left" textWrap="true" class="roboto-medium notify-lable"></Label>
+                                    <Switch (checkedChange)="onArrivalChange(item.GroupMemeberId, item.NotifyOnArrive)" [checked]="item.NotifyOnArrive != null ? item.NotifyOnArrive : true"
+                                        dock="right"></Switch>
+                                </DockLayout>
+                                <DockLayout stretchLastChild="false" verticalAlignment="center" class="p-t-5">
+                                    <Label text="Departure" dock="left" textWrap="true" class="roboto-medium notify-lable"></Label>
+                                    <Switch (checkedChange)="onDepartureChange(item.GroupMemeberId, item.NotifyOnLeave)" [checked]="item.NotifyOnLeave != null ? item.NotifyOnLeave : true"
+                                        dock="right"></Switch>
+                                </DockLayout>
+                            </StackLayout>
+                        </GridLayout> -->
+                    </ng-template>
+                </ListView>
+            </PullToRefresh>
+        </StackLayout>
+
+    </StackLayout>
+
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

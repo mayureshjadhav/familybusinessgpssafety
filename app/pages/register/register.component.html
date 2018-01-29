@@ -1,0 +1,44 @@
+<GridLayout rows="*" columns="*" class="coverImage" style="background-image: url('~/images/background.png');">
+
+    <StackLayout style="background-color:#990b0b0b;" row="0" *ngIf="!isLoad">
+        <ScrollView>
+            <StackLayout class="p-24" [visibility]="isLoading ? 'collapse' : 'visible'">
+                <Image src="res://signin_logo" class="m-t-28" style="width: 300px;"></Image>
+                <StackLayout (tap)="onSignUp()" class="m-t-25 white-box">
+                    <Label text="Create an account!" textWrap="true" class="roboto-medium black-color" fontSize="18"></Label>
+
+                    <StackLayout [formGroup]="userForm" class="m-t-25">
+
+                        <TextField formControlName="Email" hint="Email" text=""></TextField>
+                        <control-messages [control]="userForm.controls.Email" controlName="Email"></control-messages>
+
+                        <TextField formControlName="Password" secure="true" hint="Password" text=""></TextField>
+                        <control-messages [control]="userForm.controls.Password" controlName="Password"></control-messages>
+
+                        <TextField formControlName="ConfirmPassword" secure="true" hint="Confirm Password" text=""></TextField>
+                        <control-messages [control]="userForm.controls.ConfirmPassword" controlName="Confirm Password"></control-messages>
+
+                        <Button text="Register" class="m-t-25 btn-pink m-l-56 m-r-56" (tap)="OnRegisterUser()"></Button>
+                    </StackLayout>
+
+                </StackLayout>
+                <StackLayout class="m-t-25 white-box">
+                    <StackLayout orientation="horizontal" (tap)="onGoBack()">
+                        <Label text="Login" textWrap="true" class="roboto-medium black-color" fontSize="18"></Label>
+                        <Label text="Already an user?" textWrap="true" class="roboto-medium m-l-20 p-t-12" fontSize="12"></Label>
+                    </StackLayout>
+
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+
+
+
+    </StackLayout>
+
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

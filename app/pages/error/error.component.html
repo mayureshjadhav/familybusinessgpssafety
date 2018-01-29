@@ -1,0 +1,21 @@
+<ActionBar icon="" class="action-bar">
+    <StackLayout orientation="horizontal" ios:horizontalAlignment="center" android:horizontalAlignment="center">
+        <Label text="Error" class="action-label"></Label>
+    </StackLayout>
+    <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()"></NavigationButton>
+</ActionBar>
+
+<ScrollView>
+    <GridLayout rows="*" columns="*">
+        <StackLayout *ngIf="!isLoad">
+            <ScrollView>
+                <Label text="Error Occurred!!" textWrap="true" class="h1 text-center text-verticle-center"></Label>
+                <Label [text]="errorText" textWrap="true" class="text-center text-verticle-center"></Label>
+            </ScrollView>
+        </StackLayout>
+
+        <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+            row="0"></ActivityIndicator>
+           
+    </GridLayout>
+</ScrollView>

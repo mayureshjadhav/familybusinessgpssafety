@@ -1,0 +1,80 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <NavigationButton text="Back" ios:tintColor="#FFF" android.systemIcon="ic_menu_back" (tap)="onGoBack()"></NavigationButton>
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="Interest Points" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+    <!-- <ActionItem text="Edit" [visibility]="isOwer ? 'visible' : 'collapsed'" (tap)="EditGroup()" ios.position="right" android.position="right"></ActionItem> -->
+
+    <!-- <ActionItem (tap)="onLogOut()" style="height: 30px;" icon="res://ic_logout" position="right"></ActionItem> -->
+</ActionBar>
+<GridLayout rows="*" columns="*" class="settings">
+    <StackLayout row="0" *ngIf="!isLoad">
+        <GridLayout rows="*, auto" columns="" [visibility]="isLoading ? 'collapse' : 'visible'">
+            <GridLayout rows="auto,*" columns="">
+                <GridLayout rows="auto, *, 55" columns="" row="1">
+                    <StackLayout row="0" class="custom-tab-view" orientation="horizontal">
+                        <StackLayout *ngFor="let item of tabItems; let i=index" style="padding-bottom:0" [class]="selectedIndex == i ? 'tab-btn text-center select-tab-view' : 'tab-btn text-center'"
+                            orientation="vertical" (tap)="selectTab(i,item)" verticalAlignment="center">
+                            <Label class="p-t-20 p-b-20" [text]="item.title"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout row="1" height="100%">
+                        <Label *ngIf="isEmptyRecords" text="No Interest Points Found" textWrap="true" class="p-15 text-center color-pink"></Label>
+
+
+                        <PullToRefresh (refresh)="refreshList($event)">
+
+                            <ListView [items]="interestPoints" (itemLoading)="loadMoreMembers($event)" (itemTap)="onItemTap($event)" class="list-group">
+                                <ng-template let-item="item">
+                                    <GridLayout rows="auto" columns="50, *, 120" class="setting p-t-10 p-b-10">
+                                        <Image row="0" col="0" [src]="item.ImagePath | imageCache | async" width="50" height="50" stretch="aspectFill" class="circle-wrapper"></Image>
+                                        <StackLayout row="0" col="1" verticalAlignment="center">
+                                            <Label [text]="item.InterestPointName" textWrap="true" fontSize="14" class="roboto-regular p-l-10" style="color:#de000000;"
+                                                verticalAlignment="center"></Label>
+                                            <Label text="{{'Created By: ' + item.Name}}" textWrap="true" class="roboto-medium notify-lable p-l-10"></Label>
+                                        </StackLayout>
+                                    </GridLayout>
+                                </ng-template>
+                            </ListView>
+                        </PullToRefresh>
+                    </StackLayout>
+                    <Button [visibility]="isOwer ? 'visible' : 'collapsed'" row="2" text="Add Interest Point" class="btn-pink p-0 m-0" (tap)="onNewInterestPoint()"></Button>
+
+                </GridLayout>
+            </GridLayout>
+            <StackLayout row="1" orientation="horizontal" class="bottom-tab">
+                <StackLayout (tap)="group()" width="33.33%" style="padding-bottom:0; margin-top: 10;color:#049ff6" class="tab-btn text-center" verticalAlignment="center"
+                    horizontalAlignment="center">
+                    <Label text="&#xf0c0;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                    <Label text="Groups" textWrap="true" class="roboto-medium text-center p-b-10"></Label>
+                </StackLayout>
+
+                <StackLayout (tap)="updateProfile()" width="33.33%" style="padding-bottom:0;margin-top: 10;color:#049ff6" class="tab-btn text-center"
+                    verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="&#xf2c0;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                    <Label text="Profile" textWrap="true" class="label text-center p-b-10"></Label>
+                </StackLayout>
+
+                <StackLayout width="33.33%" style="padding-bottom:0;margin-top: 10;color:#049ff6" class="tab-btn text-center" verticalAlignment="center"
+                    horizontalAlignment="center">
+
+                    <AbsoluteLayout verticalAlignment="center" horizontalAlignment="center">
+                        <StackLayout verticalAlignment="center" horizontalAlignment="center">
+                            <Label text="&#xf0a2;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                            <Label text="Notification" textWrap="true" class="label text-center p-b-10"></Label>
+                        </StackLayout>
+
+                    </AbsoluteLayout>
+
+                </StackLayout>
+            </StackLayout>
+        </GridLayout>
+
+
+    </StackLayout>
+
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

@@ -1,0 +1,124 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <NavigationButton text="Back" ios:tintColor="#FFF" android.systemIcon="ic_menu_back" (tap)="onGoBack()"></NavigationButton>
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="Group Details" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+    <ActionItem text="Edit" class="color-white" [visibility]="isOwer ? 'visible' : 'collapsed'" (tap)="EditGroup()" ios.position="right" android.position="right"></ActionItem>
+
+    <!-- <ActionItem (tap)="onLogOut()" style="height: 30px;" icon="res://ic_logout" position="right"></ActionItem> -->
+</ActionBar>
+<GridLayout rows="*" columns="*" class="settings">
+    <StackLayout row="0" *ngIf="!isLoad">
+        <GridLayout rows="*, auto" columns="" [visibility]="isLoading ? 'collapse' : 'visible'">
+            <GridLayout rows="auto,*" columns="">
+                <GridLayout rows="auto, *" columns="" row="1">
+                    <!-- <StackLayout ios:class="tab-view" android:class="tab-view-android" orientation="horizontal">
+                        <StackLayout *ngFor="let item of tabItems; let i=index" style="padding-bottom:0" class="tab-btn text-center" [class.active]="selectedIndex == i"
+                            orientation="vertical" (tap)="selectTab(i)" verticalAlignment="center">
+                            <Label [class.selected]="selectedIndex == i" [text]="item.title"></Label>
+                        </StackLayout>
+                    </StackLayout> -->
+                    <StackLayout row="0" class="custom-tab-view" orientation="horizontal">
+                        <StackLayout *ngFor="let item of tabItems; let i=index" style="padding-bottom:0" [class]="selectedIndex == i ? 'tab-btn text-center select-tab-view' : 'tab-btn text-center'"
+                            orientation="vertical" (tap)="selectTab(i, item)" verticalAlignment="center">
+                            <Label class="p-t-20 p-b-20" [text]="item.title"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <ScrollView row="1">
+                        <StackLayout height="100%">
+
+                            <DockLayout stretchLastChild="false">
+                                <Label [text]="viewGroup.SubscriptionName" fontSize="15" dock="left" textWrap="true" class="p-10 m-t-10 m-b-25 text-primary"></Label>
+                                <Label (tap)="onSubscriptioDetailsTap()" [visibility]="isOwer ? 'visible' : 'collapsed'" text="&#xf05a;" textWrap="true"
+                                    dock="right" marginBottom="25" marginTop="10" marginRight="10" class="fa" fontSize="25" style="color: #ff0068"></Label>
+                            </DockLayout>
+
+
+                            <StackLayout class="setting">
+                                <Label text="Group Name" textWrap="true" class="roboto-medium black-color" fontSize="14"></Label>
+                                <Label [text]="viewGroup.GroupName" textWrap="true" class="p-t-10 p-b-10"></Label>
+                            </StackLayout>
+
+                            <DockLayout class="setting" stretchLastChild="false">
+                                <Label text="Can members see each other?" dock="left" textWrap="true" class="roboto-medium black-color" fontSize="14"></Label>
+                                <Switch #sw [checked]="viewGroup.CanMemberSeeEachOther != null ? viewGroup.CanMemberSeeEachOther : true" dock="right" marginRight="10"
+                                    isEnabled="false"></Switch>
+                            </DockLayout>
+
+                            <StackLayout class="setting" [visibility]="viewGroup.SubscriptionType == 2 ? 'visible' : 'collapsed'">
+                                <Label text="Tracking Time" textWrap="true" class="roboto-medium black-color" fontSize="14"></Label>
+
+                                <StackLayout class="m-t-15">
+                                    <Label text="From" textWrap="true" class="roboto-medium"></Label>
+                                    <Label [text]="viewGroup.TrackingFromString" textWrap="true"></Label>
+
+                                    <Label text="To" textWrap="true" class="roboto-medium"></Label>
+                                    <Label [text]="viewGroup.TrackingToString" textWrap="true"></Label>
+                                </StackLayout>
+
+                            </StackLayout>
+
+                            <StackLayout class="setting" [visibility]="viewGroup.SubscriptionType == 2 ? 'visible' : 'collapsed'">
+                                <Label text="Tracking Days" textWrap="true" class="roboto-medium black-color" fontSize="14"></Label>
+                                <GridLayout rows="*" columns="*,*,*,*,*,*,*">
+                                    <Label row="0" col="0" text="M" textWrap="true" [class]="viewGroup.Monday? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                        verticalAlignment="center"></Label>
+                                    <Label row="0" col="1" text="T" textWrap="true" [class]="viewGroup.Tuesday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                        verticalAlignment="center"></Label>
+                                    <Label row="0" col="2" text="W" textWrap="true" [class]="viewGroup.Wednesday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                        verticalAlignment="center"></Label>
+                                    <Label row="0" col="3" text="T" textWrap="true" [class]="viewGroup.Thursday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                        verticalAlignment="center"></Label>
+                                    <Label row="0" col="4" text="F" textWrap="true" [class]="viewGroup.Friday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                        verticalAlignment="center"></Label>
+                                    <Label row="0" col="5" text="S" textWrap="true" [class]="viewGroup.Saturday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                        verticalAlignment="center"></Label>
+                                    <Label row="0" col="6" text="S" textWrap="true" [class]="viewGroup.Sunday ? 'active-button' : 'inActive-button'" horizontalAlignment="center"
+                                        verticalAlignment="center"></Label>
+
+                                </GridLayout>
+                            </StackLayout>
+
+
+                        </StackLayout>
+                    </ScrollView>
+                </GridLayout>
+
+                <!-- <FAB (tap)="addNewGroup()" row="1" icon="res://ic_add_white" rippleColor="#f1f1f1" class="fab-button m-b-25"></FAB> -->
+            </GridLayout>
+            <StackLayout row="1" orientation="horizontal" class="bottom-tab">
+                <StackLayout (tap)="onGoBack()" width="33.33%" style="padding-bottom:0; margin-top: 10;color:#049ff6" class="tab-btn text-center" verticalAlignment="center"
+                    horizontalAlignment="center">
+                    <Label text="&#xf0c0;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                    <Label text="Groups" textWrap="true" class="roboto-medium text-center p-b-10"></Label>
+                </StackLayout>
+
+                <StackLayout (tap)="updateProfile()" width="33.33%" style="padding-bottom:0;margin-top: 10;color:#049ff6" class="tab-btn text-center"
+                    verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="&#xf2c0;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                    <Label text="Profile" textWrap="true" class="label text-center p-b-10"></Label>
+                </StackLayout>
+
+                <StackLayout width="33.33%" style="padding-bottom:0;margin-top: 10;color:#049ff6" class="tab-btn text-center" verticalAlignment="center"
+                    horizontalAlignment="center">
+
+                    <AbsoluteLayout verticalAlignment="center" horizontalAlignment="center">
+                        <StackLayout verticalAlignment="center" horizontalAlignment="center">
+                            <Label text="&#xf0a2;" textWrap="true" class="fa text-center" fontSize="25"></Label>
+                            <Label text="Notification" textWrap="true" class="label text-center p-b-10"></Label>
+                        </StackLayout>
+
+                    </AbsoluteLayout>
+
+                </StackLayout>
+            </StackLayout>
+        </GridLayout>
+
+
+    </StackLayout>
+
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

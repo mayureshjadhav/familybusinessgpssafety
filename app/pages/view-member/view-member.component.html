@@ -1,0 +1,49 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <NavigationButton text="Back" ios:tintColor="#FFF" android.systemIcon="ic_menu_back" (tap)="onGoBack()"></NavigationButton>
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="View Member Details" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+</ActionBar>
+<GridLayout rows="*" columns="*" class="settings">
+
+    <StackLayout row="0" *ngIf="!isLoad">
+        <ScrollView>
+            <StackLayout style="padding: 24 24 24 24;" class="background-color-gray" [visibility]="isLoading ? 'collapse' : 'visible'">
+
+                <StackLayout class="p-t-15">
+                    <GridLayout rows="*" columns="*, *" class="p-b-15">
+                        <Label text="{{'Battery Level: ' + (item.BatteryLevel * 100) + '%'}}" row="0" col="0" textWrap="true"></Label>
+                        <Label text="{{'Last Updated: ' + item.UpdatedDate }}" row="0" col="1" class="pull-right" textWrap="true"></Label>
+                    </GridLayout>
+                    <MapView height="150" #MapView zoom="16" [latitude]="latitude" [longitude]="longitude" (mapReady)="onMapReady($event)"></MapView>
+                    <GridLayout rows="*" columns="*, *" class="p-t-15">
+                        <StackLayout row="0" col="0">
+                            <Label [text]="item.UserAddress" textWrap="true"></Label>
+                        </StackLayout>
+                        <StackLayout row="0" col="1">
+                            <Image [src]="item.ProfileImage | imageCache | async" width="75" height="75" stretch="aspectFill" class="circle-wrapper"
+                                placeholder="res://profile"></Image>
+                            <Label [text]="item.Name" textWrap="true"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                    <Button text="Navigate Now" class="btn-pink p-0 m-0"></Button>
+
+                    <!-- <Button text="Edit" class="pull-right btn-none" (tap)="onEdit()"></Button> -->
+
+                    <!-- <Label text="Edit" textWrap="true" class="pull-right" (tap)="onEdit()"></Label> -->
+
+                    <!-- <Label text="Email Id : " textWrap="true" class="text-primary p-t-15"></Label>
+                    <Label [text]="item.InterestPointName" textWrap="true" class="p-t-15"></Label> -->
+                    <Label text="Contact No. : " textWrap="true" class="text-primary p-t-15"></Label>
+                    <Label [text]="item.PhoneNumber" textWrap="true" class="p-t-15"></Label>
+
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

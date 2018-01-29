@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1104692385",
+    "firebase_url": "https://gps-tracker-b3fac.firebaseio.com",
+    "project_id": "gps-tracker-b3fac",
+    "storage_bucket": "gps-tracker-b3fac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1104692385:android:27034a6d41eeec32",
+        "android_client_info": {
+          "package_name": "com.serviceconf.familybusinessgpssafety"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1104692385-b3os600jl2o4ojv3t32pc8i69gsh5pos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBptMj9OsHL5NKvFipxX_wHG3hq0X7ZkLw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,105 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <NavigationButton text="Back" ios:tintColor="#FFF" android.systemIcon="ic_menu_back" (tap)="onGoBack()"></NavigationButton>
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="Subscription Details" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+</ActionBar>
+<GridLayout rows="*" columns="*" class="settings">
+
+    <StackLayout row="0" *ngIf="!isLoad">
+        <GridLayout rows="*,55" columns="" style="background-color: #F3F7F8;" [visibility]="isLoading ? 'collapse' : 'visible'">
+            <StackLayout row="0">
+                <ScrollView>
+                    <StackLayout class="background-color-gray" [visibility]="isLoading ? 'collapse' : 'visible'">
+                        <GridLayout rows="*" columns="*, *" class="p-15">
+                            <Label text="Plan : " row="0" col="0" class="text-primary"></Label>
+                            <Label [text]="item.SubscriptionName" row="0" col="1" textWrap="true"></Label>
+                        </GridLayout>
+
+                        <GridLayout rows="*" columns="*, *" class="p-15">
+                            <Label text="Subscribed On : " row="0" col="0" class="text-primary"></Label>
+                            <Label [text]="item.CreatedDate" row="0" col="1" textWrap="true"></Label>
+                        </GridLayout>
+
+                        <GridLayout rows="*" columns="*, *" class="p-15" [visibility]="item.SubscriptionType != 0 ? 'visible' : 'collapsed'">
+                            <Label text="Expiring On : " row="0" col="0" class="text-primary"></Label>
+                            <Label [text]="item.ExpiredDate" row="0" col="1" textWrap="true"></Label>
+                        </GridLayout>
+
+
+                        <StackLayout class="background-white-color border-bottom">
+                            <GridLayout rows="*" columns="55,*,100" class="p-l-10 p-r-10 p-t-20 p-b-20">
+                                <Label col="0" text="&#xf0c0;" textWrap="true" verticalAlignment="center" horizontalAlignment="center" class="fa text-center p-l-10 p-r-10 text-primary"
+                                    fontSize="25"></Label>
+                                <Label col="1" text="Maximum Memebers" textWrap="true" class="roboto-regular p-l-10 p-r-10" fontSize="15"></Label>
+
+                                <Label col="2" [text]="item.IsMemberUnlimited ? 'Unlimited' : item.NumberOfMembers" textWrap="true" style="color:#61cc00"
+                                    class="roboto-bold p-l-10 p-r-10" fontSize="15" verticalAlignment="center" horizontalAlignment="center"></Label>
+                            </GridLayout>
+                        </StackLayout>
+
+                        <StackLayout class="background-white-color border-bottom">
+                            <GridLayout rows="*" columns="55,*,100" class="p-l-10 p-r-10 p-t-20 p-b-20">
+                                <Label col="0" text="&#xf041;" textWrap="true" verticalAlignment="center" horizontalAlignment="center" class="fa text-center p-l-10 p-r-10 text-primary"
+                                    fontSize="25"></Label>
+                                <Label col="1" text="Interest Points" textWrap="true" class="roboto-regular p-l-10 p-r-10" fontSize="15"></Label>
+                                <Label col="2" [text]="item.IsUnlimitedInterestPoints ? 'Unlimited' : item.NumberOfInterestPoint" textWrap="true" style="color:#61cc00"
+                                    class="roboto-bold p-l-10 p-r-10" fontSize="15" verticalAlignment="center" horizontalAlignment="center"></Label>
+                            </GridLayout>
+                        </StackLayout>
+
+                        <StackLayout class="background-white-color border-bottom">
+                            <GridLayout rows="*" columns="55,*,100" class="p-l-10 p-r-10 p-t-20 p-b-20">
+                                <Label col="0" text="&#xf132;" textWrap="true" verticalAlignment="center" horizontalAlignment="center" class="fa text-center p-l-10 p-r-10 text-primary"
+                                    fontSize="25"></Label>
+                                <Label col="1" text="Travel Protection" textWrap="true" class="roboto-regular p-l-10 p-r-10" fontSize="15"></Label>
+                                <Label col="2" [text]="item.IsDriverProtectionEnabled ? 'Enable' : 'Disable'" textWrap="true" [style]="item.IsDriverProtectionEnabled ? 'color:#61cc00' : 'color: #ff0000;'"
+                                    [class]="item.IsDriverProtectionEnabled ? 'roboto-bold p-l-10 p-r-10' : 'roboto-bold p-l-10 p-r-10'"
+                                    fontSize="15" verticalAlignment="center" horizontalAlignment="center"></Label>
+                            </GridLayout>
+                        </StackLayout>
+
+                        <StackLayout class="background-white-color border-bottom">
+                            <GridLayout rows="*" columns="55,*,100" class="p-l-10 p-r-10 p-t-20 p-b-20">
+                                <Label col="0" text="&#xf0c0;" textWrap="true" verticalAlignment="center" horizontalAlignment="center" class="fa text-center p-l-10 p-r-10 text-primary"
+                                    fontSize="25"></Label>
+                                <Label col="1" text="Receive Notifications on arriving and departing from interest points" textWrap="true" class="roboto-regular p-l-10 p-r-10"
+                                    fontSize="15"></Label>
+                                <Label col="2" [text]="item.NotificationForInterestPoint ? 'Enable' : 'Disable'" textWrap="true" [style]="item.NotificationForInterestPoint ? 'color:#61cc00' : 'color: #ff0000;'"
+                                    [class]="item.NotificationForInterestPoint ? 'roboto-bold p-l-10 p-r-10' : 'roboto-bold p-l-10 p-r-10'"
+                                    fontSize="15" verticalAlignment="center" horizontalAlignment="center"></Label>
+                            </GridLayout>
+                        </StackLayout>
+
+                        <StackLayout class="background-white-color border-bottom">
+                            <GridLayout rows="*,*" columns="55,*,100" class="p-l-10 p-r-10 p-t-20 p-b-20">
+                                <Label col="0" text="&#xf0f3;" textWrap="true" verticalAlignment="center" horizontalAlignment="center" class="fa text-center p-l-10 p-r-10 text-primary"
+                                    fontSize="25"></Label>
+                                <Label col="1" text="Can receive notifications from application with information" textWrap="true" class="roboto-regular p-l-10 p-r-10"
+                                    fontSize="15"></Label>
+                                <Label col="2" [text]="item.CanReceiveNotificationFromApp ? 'Enable' : 'Disable'" textWrap="true" [style]="item.CanReceiveNotificationFromApp ? 'color:#61cc00' : 'color: #ff0000;'"
+                                    [class]="item.CanReceiveNotificationFromApp ? 'roboto-bold p-l-10 p-r-10' : 'roboto-bold p-l-10 p-r-10'"
+                                    fontSize="15" verticalAlignment="center" horizontalAlignment="center"></Label>
+                                <Label row="1" col="1" colSpan="2" style="color: #b0afaf" class="roboto-medium-italic p-l-10 p-r-10 p-t-10" text="For example: there is a new hurricane coming and I want to send out a notification to all users of the app saying: &quot;If you are traveling to Neverland please make sure your app is functioning properly in case of any emergency.&quot; or other stuff like this."
+                                    textWrap="true"></Label>
+
+                            </GridLayout>
+
+                        </StackLayout>
+
+                        <!-- <Button text="Upgrad Now" (tap)="upgradNow()" style="margin-top: 25px; color: #fff; background-color: #ff0068; margin-left: 56px; margin-right: 56px;"></Button> -->
+
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            <Button row="1" text="Upgrad Now" class="btn-pink p-0 m-0" (tap)="onUpgradTab()"></Button>
+        </GridLayout>
+        <ScrollView>
+
+        </ScrollView>
+    </StackLayout>
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>

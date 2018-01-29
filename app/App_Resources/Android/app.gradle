@@ -1,0 +1,27 @@
+// Add your native dependencies here:
+
+// Uncomment to add recyclerview-v7 dependency
+dependencies {
+ // compile 'com.google.gms:play-services:11.8.0'
+	//compile 'com.android.support:recyclerview-v7:+'
+}
+
+android {  
+  defaultConfig {  
+    generatedDensities = []
+    applicationId = "com.serviceconf.familybusinessgpssafety"  
+    // Enabling multidex support.
+        multiDexEnabled true
+  }  
+  aaptOptions {  
+    additionalParameters "--no-version-vectors"  
+  }  
+
+  project.ext {
+    googlePlayServicesVersion = "11.2.2"
+    firebaseMessagingVersion = "11.2.2"
+  }
+ 
+} 
+
+//apply plugin: "com.google.gms.google-services"

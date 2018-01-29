@@ -1,0 +1,59 @@
+<ActionBar title="" horizontalAlignment="center" class="action-bar">
+    <NavigationButton text="Back" ios:tintColor="#FFF" android.systemIcon="ic_menu_back" (tap)="onGoBack()"></NavigationButton>
+    <StackLayout orientation="horizontal" android:horizontalAlignment="center">
+        <Label text="View Interest Point" textWrap="true" class="action-label"></Label>
+    </StackLayout>
+    <ActionItem text="Delete" [visibility]="CanEdit ? 'visible' : 'collapsed'" (tap)="DeleteInterestPoint()"
+        ios.position="right" android.position="right"></ActionItem>
+
+</ActionBar>
+<GridLayout rows="*" columns="*" class="settings">
+
+    <StackLayout row="0" *ngIf="!isLoad">
+        <ScrollView>
+            <StackLayout style="padding: 24 24 24 24;" class="background-color-gray" [visibility]="isLoading ? 'collapse' : 'visible'">
+                <AbsoluteLayout width="150" height="150" style="margin-top: 28px;">
+                    <Image [src]="item.ImagePath | imageCache | async" width="150" height="150" stretch="aspectFill" class="circle-wrapper" placeholder="res://profile"></Image>
+                    <Label (tap)="editPhoto()" text="&#xf030;" class="fa" left="100" top="100" width="90" height="90" color="red" fontSize="40"></Label>
+                </AbsoluteLayout>
+                <StackLayout class="p-t-15">   
+                    <!-- <Button text="Edit" class="pull-right btn-none" (tap)="onEdit()"></Button> -->
+                                     
+                    <!-- <Label text="Edit" textWrap="true" class="pull-right" (tap)="onEdit()"></Label> -->
+
+                    <Label text="Interest Point Name : " textWrap="true" class="text-primary p-t-15"></Label>
+                    <Label [text]="item.InterestPointName" textWrap="true" class="p-t-15"></Label>
+                    <Label text="Interest Point Description : " textWrap="true" class="text-primary p-t-15"></Label>
+                    <Label [text]="item.InterestPointDescription" textWrap="true" class="p-t-15"></Label>
+                    <Label text="Location : " textWrap="true" class="text-primary p-t-15"></Label>
+                    <MapView height="150" #MapView zoom="16" [latitude]="latitude" [longitude]="longitude" (mapReady)="onMapReady($event)"></MapView>
+                </StackLayout>
+                <!-- <GridLayout rows="auto, auto, auto, auto, auto, *" columns="*" class="p-t-15">
+                    <Label text="Interest Point Name : " textWrap="true" row="0" col="0" class="text-primary p-t-15"></Label>
+                    <Label [text]="item.InterestPointName" textWrap="true" row="1" col="0" class="p-t-15"></Label>
+                    <Label text="Interest Point Description : " textWrap="true" row="2" col="0" class="text-primary p-t-15"></Label>
+                    <Label [text]="item.InterestPointDescription" textWrap="true" row="3" col="0" class="p-t-15"></Label>
+                    <Label text="Location : " textWrap="true" row="4" col="0" class="text-primary p-t-15"></Label>
+                    <MapView row="5" col="0" #MapView zoom="16" [latitude]="latitude" [longitude]="longitude" (mapReady)="onMapReady($event)"></MapView>
+                </GridLayout> -->
+                <!-- <GridLayout rows="auto" columns="auto, *" class="p-15">
+                    <Label text="Interest Point Name : " textWrap="true" row="0" col="0" class="text-primary"></Label>
+                    <Label [text]="item.InterestPointName" row="0" col="1" textWrap="true"></Label>
+                </GridLayout>
+                <GridLayout rows="auto" columns="auto, *" class="p-15">
+                    <Label text="Interest Point Description : " textWrap="true" row="0" col="0" class="text-primary"></Label>
+                    <Label [text]="item.InterestPointDescription" row="0" col="1" textWrap="true"></Label>
+                </GridLayout>
+                <GridLayout rows="auto" columns="auto" class="p-15">
+                    <Label text="Location : " row="0" col="0" class="text-primary"></Label>
+                    
+                </GridLayout> -->
+
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+    <ActivityIndicator [busy]="isLoad" [visibility]="isLoad ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"
+        row="0"></ActivityIndicator>
+</GridLayout>
